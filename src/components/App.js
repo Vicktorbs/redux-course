@@ -1,54 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const App = () => {
+class App extends Component {
 
-  const ponerFilas = () => [
-    <tr>
-      <td>
-        Victor
-      </td>
-      <td>
-        viktorb.132@gmail.com
-      </td>
-      <td>
-        viktorbs.io
-      </td>
-    </tr>,
-    <tr>
-      <td>
-        Platzi
-      </td>
-      <td>
-        platzi@gmail.com
-      </td>
-      <td>
-        platzi.com
-      </td>
-    </tr>
-  ]
+  constructor() {
+    super();
+    this.state = {
+      usuarios: [
+        {
+          nombre: 'Victor',
+          correo: 'viktorb.132@gmail.com',
+          enlace: 'viktorbs.io'
+        },
+        {
+          nombre: 'Platzi',
+          correo: 'platzi@platzi.com',
+          enlace: 'platzi.com'
+        }
+      ]
+    }
+  }
 
-  return (
-    <div className='margen'>
-        <table className='tabla'>
-        <thead>
-          <tr>
-            <th>
-              Nombre
-            </th>
-            <th>
-              Correo
-            </th>
-            <th>
-              Email
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          { ponerFilas() }
-        </tbody>
-      </table>
-    </div>
+  ponerFilas = () => (
+    this.state.usuarios.map((usuario) => (
+      <tr>
+        <td>
+          { usuario.nombre }
+        </td>
+        <td>
+          { usuario.correo }
+        </td>
+        <td>
+          { usuario.enlace }
+        </td>
+      </tr>
+    ))
   )
+
+  render() {
+    return (
+      <div className='margen'>
+          <table className='tabla'>
+          <thead>
+            <tr>
+              <th>
+                Nombre
+              </th>
+              <th>
+                Correo
+              </th>
+              <th>
+                Email
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.ponerFilas() }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 export default App
