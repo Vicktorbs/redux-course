@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as usuariosActions from '../../actions/usuariosActions';
+
 class Usuarios extends Component {
 
-	// async componentDidMount() {
-	// 	const respuesta = await axios.get('https://jsonplaceholder.typicode.com/users')
-	// 	this.setState({
-	// 		usuarios: respuesta.data
-	// 	})
-	// }
+	async componentDidMount() {
+		this.props.traerTodos();
+	}
 
-	ponerFilas = () => (
-		this.props.usuarios.map((usuario) => (
-			<tr key={ usuario.id }>
+	ponerFilas = () => this.props.usuarios.map((usuario) => (
+		<tr key={ usuario.id }>
 			<td>
 				{ usuario.name }
 			</td>
@@ -22,40 +20,37 @@ class Usuarios extends Component {
 			<td>
 				{ usuario.website }
 			</td>
-			</tr>
-		))
-	)
+		</tr>
+	));
 
 	render() {
-		// console.log(this.state.usuarios);
-		console.log(this.props);
 		return (
 			<div className='margen'>
-				<table className='tabla'>
-				<thead>
-					<tr>
-					<th>
-						Nombre
-					</th>
-					<th>
-						Correo
-					</th>
-					<th>
-						Email
-					</th>
-					</tr>
-				</thead>
-				<tbody>
-					{ this.ponerFilas() }
-				</tbody>
-			</table>
+				<table className="tabla">
+					<thead>
+						<tr>
+							<th>
+								Nombre
+							</th>
+							<th>
+								Correo
+							</th>
+							<th>
+								Enlace
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{ this.ponerFilas() }
+					</tbody>
+				</table>
 			</div>
 		)
 	}
-}
+};
 
 const mapStateToProps = (reducers) => {
 	return reducers.usuariosReducer;
 };
 
-export default connect(mapStateToProps, {/*Accion Creator*/})(Usuarios);
+export default connect(mapStateToProps, usuariosActions)(Usuarios);
