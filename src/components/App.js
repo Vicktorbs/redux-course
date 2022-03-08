@@ -1,65 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Menu from './Menu';
+import Usuarios from './Usuarios';
 
-class App extends Component {
+const Tarea = () => <div  className='margen'>Tareas</div>
 
-  constructor() {
-    super();
-    this.state = {
-      usuarios: [
-        {
-          nombre: 'Victor',
-          correo: 'viktorb.132@gmail.com',
-          enlace: 'viktorbs.io'
-        },
-        {
-          nombre: 'Platzi',
-          correo: 'platzi@platzi.com',
-          enlace: 'platzi.com'
-        }
-      ]
-    }
-  }
-
-  ponerFilas = () => (
-    this.state.usuarios.map((usuario) => (
-      <tr>
-        <td>
-          { usuario.nombre }
-        </td>
-        <td>
-          { usuario.correo }
-        </td>
-        <td>
-          { usuario.enlace }
-        </td>
-      </tr>
-    ))
-  )
-
-  render() {
-    return (
-      <div className='margen'>
-          <table className='tabla'>
-          <thead>
-            <tr>
-              <th>
-                Nombre
-              </th>
-              <th>
-                Correo
-              </th>
-              <th>
-                Email
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.ponerFilas() }
-          </tbody>
-        </table>
-      </div>
-    )
-  }
-}
+const App = () => (
+  <BrowserRouter>
+    <Menu />
+    <Routes>
+      <Route exact path='/' element={ <Usuarios /> } />
+      <Route exact path='/tareas' element={ <Tarea /> } />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App

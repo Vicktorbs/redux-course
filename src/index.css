@@ -1,3 +1,6 @@
+body {
+  margin: 0;
+}
 .margen {
   margin: 100px;
 }
@@ -8,4 +11,13 @@
 .tabla td {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+#menu {
+  background-color: #253A46;
+  padding: 20px;
+  font-size: 20px;
+}
+#menu a {
+  color: white;
+  padding-right: 50px;
 }
