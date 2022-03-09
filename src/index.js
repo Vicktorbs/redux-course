@@ -1,28 +1,6 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './components/App';
-// import { createStore, applyMiddleware } from 'redux';
-// import { Provider } from 'react-redux';
-// import reducers from './reducers';
-// import reducThunk from 'redux-thunk'
-
-// const store = createStore(
-//   reducers,  //todos los reducers
-//   {},
-//   applyMiddleware(reducThunk)
-// )
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css';
 import App from './components/App';
 
 import { Provider } from 'react-redux';
@@ -39,9 +17,9 @@ const store = createStore(
 
 ReactDOM.render(
 	<React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+		<Provider store={store}>
+		<App />
+		</Provider>
+	</React.StrictMode>,
 	document.getElementById('root')
 );
