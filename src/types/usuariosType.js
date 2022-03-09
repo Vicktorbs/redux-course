@@ -1,3 +1,3 @@
-export const TRAER_TOODS = 'traer_usuarios'
-export const CARGANDO = 'cargando'
-export const ERROR = 'error'
+export const TRAER_TOODS = 'usuarios_traer_usuarios'
+export const CARGANDO = 'usuarios_cargando'
+export const ERROR = 'usuarios_error'

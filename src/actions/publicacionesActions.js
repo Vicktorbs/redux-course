@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { CARGANDO, ERROR, TRAER_TOODS } from '../types/usuariosType';
+import { CARGANDO, ERROR, TRAER_TOODS } from "../types/publicacionesTypes";
+import axios from "axios";
 
 export const traerTodos = () => async (dispatch) => {
     dispatch({
         type: CARGANDO
     });
-	try {
-        const respuesta = await axios.get('https://jsonplaceholder.typicode.com/users');
+    try {
+        const respuesta = await axios.get('http://jsonplaceholder.typicode.com/posts')
         dispatch({
             type: TRAER_TOODS,
             payload: respuesta.data
@@ -18,4 +18,4 @@ export const traerTodos = () => async (dispatch) => {
             payload: 'Algo salio mal, intente mas tarde'
         })
     }
-};
+}
