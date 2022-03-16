@@ -37,16 +37,47 @@ const Publications = (props) => {
         // if (props.usuariosReducer.usuarios.length || props.usuariosReducer.cargando) {
             return <Spinner />
         }
-        const nombre = props.usuariosReducer.usuarios[params.key].name
+        const nombre = props.usuariosReducer.usuarios[params.key].name || ''
         return (
             <h1>Publicaciones de { nombre }</h1>
         )
     }
 
+    const ponerPublicaciones = () => {
+        if (!props.usuariosReducer.usuarios) return;
+        if (props.usuariosReducer.error) return;
+        if (props.publicacionesReducer.cargando) {
+            return <Spinner />
+        }
+        if (props.publicacionesReducer.error) {
+            return <Fatal mensaje={ props.publicacionesReducer.error } />
+        }
+        if (!props.publicacionesReducer.publicaciones.length) return;
+        if (!('publicaciones_key' in props.usuariosReducer.usuarios[params.key])) return;
+
+        // console.log(props.usuariosReducer.usuarios[params.key]);
+        const { publicaciones_key } = props.usuariosReducer.usuarios[params.key]
+        return props.publicacionesReducer.publicaciones[publicaciones_key].map((publicacion) => (
+			<div
+				key={publicacion.id}
+				className='pub_titulo'
+				onClick={ ()=>alert(publicacion.id) }
+			>
+				<h2>
+					{ publicacion.title }
+				</h2>
+				<h3>
+					{ publicacion.body }
+				</h3>
+			</div>
+		));
+    }
+
     return (
         <div className="margen">
             { ponerUsuario() }
-            {params.key}
+            { ponerPublicaciones() }
+            {/* {params.key} */}
         </div>
     );
 };
