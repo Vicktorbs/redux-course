@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import Spinner from '../general/Spinner'
 import Fatal from '../general/Fatal'
+import Comentarios from "./Comentarios";
 
 import * as usuariosActions from '../../actions/usuariosActions';
 import * as publicacionesActions from '../../actions/publicacionesActions';
 
 const { traerTodos: usuariosTraerTodos } = usuariosActions
-const { traerPorUsuario : publicacionesTraerPorUsuarios } = publicacionesActions
+const { traerPorUsuario : publicacionesTraerPorUsuarios, abrirCerrar, traerComentarios } = publicacionesActions
 
 const Publications = (props) => {
     const params = useParams();
@@ -57,11 +58,15 @@ const Publications = (props) => {
 
         // console.log(props.usuariosReducer.usuarios[params.key]);
         const { publicaciones_key } = props.usuariosReducer.usuarios[params.key]
-        return props.publicacionesReducer.publicaciones[publicaciones_key].map((publicacion) => (
+        return mostrarInfo(publicaciones_key)
+    }
+
+    const mostrarInfo = (publicaciones_key) => (
+        props.publicacionesReducer.publicaciones[publicaciones_key].map((publicacion, com_key) => (
 			<div
 				key={publicacion.id}
 				className='pub_titulo'
-				onClick={ ()=>alert(publicacion.id) }
+				onClick={ ()=> mostrarComentarios(publicaciones_key, com_key, publicacion.comentarios) }
 			>
 				<h2>
 					{ publicacion.title }
@@ -69,15 +74,25 @@ const Publications = (props) => {
 				<h3>
 					{ publicacion.body }
 				</h3>
+                {
+                    (publicacion.abierto) ? <Comentarios comentarios={ publicacion.comentarios } /> : ''
+                }
 			</div>
-		));
+		))
+    )
+
+    const mostrarComentarios = (publicaciones_key, com_key, comentarios) => {
+        // console.log('comentarios', comentarios);
+        props.abrirCerrar(publicaciones_key, com_key)
+        if (!comentarios.length) {
+            props.traerComentarios(publicaciones_key, com_key)
+        }
     }
 
     return (
         <div className="margen">
             { ponerUsuario() }
             { ponerPublicaciones() }
-            {/* {params.key} */}
         </div>
     );
 };
@@ -91,6 +106,8 @@ const mapStateToProps = ({ usuariosReducer, publicacionesReducer }) => {
 
 const mapDispatchToProps = {
     usuariosTraerTodos,
-    publicacionesTraerPorUsuarios
+    publicacionesTraerPorUsuarios,
+    abrirCerrar,
+    traerComentarios
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);
