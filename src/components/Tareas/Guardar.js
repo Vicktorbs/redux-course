@@ -14,7 +14,8 @@ class Guardar extends Component {
 			// match: { params: { useer_id, tar_id } },
 			tareas,
 			cambioUsuarioId,
-			cambioTitulo
+			cambioTitulo,
+			limpiarForma
 		} = this.props;
 		// console.log(useer_id, tar_id);
 
@@ -22,6 +23,8 @@ class Guardar extends Component {
 			const tarea = tareas[useer_id][tar_id];
 			cambioUsuarioId(tarea.userId);
 			cambioTitulo(tarea.title);
+		} else {
+			limpiarForma();
 		}
 	}
 	cambioUsuarioId = (event) => {

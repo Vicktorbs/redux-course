@@ -13,7 +13,7 @@ const { traerPorUsuario : publicacionesTraerPorUsuarios, abrirCerrar, traerComen
 
 const Publications = (props) => {
     const params = useParams();
-    console.log(props);
+    // console.log(props);q
     useEffect(() => {
         async function reducersCall() {
             if (!props.usuariosReducer.usuarios.length) {
