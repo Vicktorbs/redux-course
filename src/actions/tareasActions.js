@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CARGANDO, ERROR, TRAER_TODAS, CAMBIO_TITULO, CAMBIO_USUARIO, AGREGADA } from '../types/tareasTypes';
+import { CARGANDO, ERROR, TRAER_TODAS, CAMBIO_TITULO, CAMBIO_USUARIO, GUARDAR, ACTUALIZAR } from '../types/tareasTypes';
 
 export const traerTodas = () => async (dispatch) => {
     dispatch({
@@ -53,7 +53,8 @@ export const agregar = (nueva_tarea) => async (dispatch) => {
     try {
 		const respuesta = await axios.post('https://jsonplaceholder.typicode.com/todos', nueva_tarea);
 		dispatch({
-			type: AGREGADA		});
+			type: GUARDAR
+        });
 	}
 	catch (error) {
 		console.log(error.message);
@@ -63,4 +64,46 @@ export const agregar = (nueva_tarea) => async (dispatch) => {
 
 		});
 	}
+}
+
+export const editar = (tarea_editada) => async (dispatch) => {
+    console.log(tarea_editada);
+    dispatch({
+        type: CARGANDO
+    })
+
+    try {
+		const respuesta = await axios.put(`https://jsonplaceholder.typicode.com/todos/${ tarea_editada.id }`, tarea_editada);
+		dispatch({
+			type: GUARDAR
+        });
+	}
+	catch (error) {
+		console.log(error.message);
+		dispatch({
+			type: ERROR,
+			payload: 'Servicio no disponible en este momento.'
+
+		});
+	}
+}
+export const cambioCheck = (useer_id, tar_id) => (dispatch, getState) => {
+    const { tareas } = getState().tareasReducer;
+    const seleccionada = tareas[useer_id][tar_id]
+
+    const actualiadas = {
+        ...tareas
+    }
+    actualiadas[useer_id] = {
+        ...tareas[useer_id]
+    }
+    actualiadas[useer_id][tar_id] = {
+        ...tareas[useer_id][tar_id],
+        completed: !seleccionada.completed
+    }
+
+    dispatch({
+        type: ACTUALIZAR,
+        payload: actualiadas
+    })
 }

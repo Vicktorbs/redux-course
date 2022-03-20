@@ -16,6 +16,7 @@ const App = () => (
       <Route exact path='/tareas' element={ <Tareas /> } />
       <Route exact path="/publicaciones/:key"  element={ <Publicaciones /> } />
       <Route exact path="/tareas/guardar"  element={ <Guardar /> } />
+      <Route exact path="/tareas/guardar/:user_id/:tar_id"  element={ <Guardar /> } />
     </Routes>
   </BrowserRouter>
 );
